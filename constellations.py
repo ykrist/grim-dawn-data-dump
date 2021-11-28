@@ -1,28 +1,11 @@
 import json
-import re
 import math
-from pathlib import Path
 from typing import *
+from common import *
+from tags import TagLookup
 import subprocess
 
 CONSTELLATIONS_PATH = Path("ui/skills/devotion/constellations")
-
-
-WEAPON_TYPES = [
-    "Axe",
-    "Axe2h",
-    "Mace",
-    "Mace2h",
-    "Magical",
-    "Offhand",
-    "Ranged1h",
-    "Ranged2h",
-    "Shield",
-    "Spear",
-    "Staff",
-    "Sword",
-    "Sword2h",
-]
 
 def load_dbr_file(p: Path) -> dict:
     key_vals = {}
@@ -60,6 +43,9 @@ def _get_passive_bonuses(data: dict) -> dict:
         "skillDownBitmapName",
         "skillUpBitmapName",
         'skillBaseDescription',
+        'skillMaxLevel',
+        # This seems to be deprecated (doesn't show up in the tooltip)
+        # "defensiveSlowLifeLeachDuration"
     }
 
     bonuses = {}
@@ -99,8 +85,9 @@ def parse_petbonus_skill_file(p: Path) -> dict:
 def parse_passive_skill_file(p: Path) -> dict:
     data = load_dbr_file(p)
     assert data['Class'] == "Skill_Passive"
+    tags = TagLookup()
     output = {
-        "constellation": data['FileDescription'],
+        "constellation": tags.resolve(data["skillDisplayName"]),
         "bonuses": _get_passive_bonuses(data),
     }
     weapon_req = _get_weapon_reqs(data)
@@ -219,5 +206,6 @@ if __name__ == '__main__':
             constellations.add(n)
         full_list.extend(data)
 
-    with open('constellations-extracted.json', 'w') as fp:
+    CONSTELLATION_FILE.parent.mkdir(exist_ok=True)
+    with open(CONSTELLATION_FILE, 'w') as fp:
         json.dump(full_list, fp, indent='  ')

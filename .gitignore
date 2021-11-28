@@ -1,3 +1,6 @@
 venv
 raw/
+tags/
 constellations-extracted.json
+data/
+__pycache__
