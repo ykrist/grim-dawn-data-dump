@@ -1,8 +1,9 @@
-import json
+#!/usr/bin/env python3
 import math
 from typing import *
-from common import *
-from tags import TagLookup
+from grim_dawn_data import WEAPON_TYPES, load_tags, CONSTELLATION_FILE
+from grim_dawn_data.json_utils import dump_json
+from pathlib import Path
 import subprocess
 
 CONSTELLATIONS_PATH = Path("ui/skills/devotion/constellations")
@@ -16,7 +17,7 @@ def load_dbr_file(p: Path) -> dict:
             assert line[-1] == ""
             assert line[0] not in key_vals
             key_vals[line[0]] = line[1]
-    print("load", p)
+    print("read", p)
     return key_vals
 
 
@@ -44,8 +45,6 @@ def _get_passive_bonuses(data: dict) -> dict:
         "skillUpBitmapName",
         'skillBaseDescription',
         'skillMaxLevel',
-        # This seems to be deprecated (doesn't show up in the tooltip)
-        # "defensiveSlowLifeLeachDuration"
     }
 
     bonuses = {}
@@ -67,8 +66,9 @@ class BadActiveSkillFile(Exception):
 
 def parse_active_skill_file(p: Path) -> dict:
     data = load_dbr_file(p)
-    if "FileDescription" in data:
-        output = { "celestial_power": data['FileDescription']}
+    tags = load_tags()
+    if "skillBaseDescription" in data:
+        output = { "celestial_power": tags[data['skillBaseDescription']]}
     else:
         raise BadActiveSkillFile
 
@@ -85,9 +85,9 @@ def parse_petbonus_skill_file(p: Path) -> dict:
 def parse_passive_skill_file(p: Path) -> dict:
     data = load_dbr_file(p)
     assert data['Class'] == "Skill_Passive"
-    tags = TagLookup()
+    tags = load_tags()
     output = {
-        "constellation": tags.resolve(data["skillDisplayName"]),
+        "constellation": tags[data["skillDisplayName"]],
         "bonuses": _get_passive_bonuses(data),
     }
     weapon_req = _get_weapon_reqs(data)
@@ -155,7 +155,7 @@ def process_constellation(base_path: Path, p: Path) -> Optional[Dict[str, Any]]:
 
     assert c_name is not None
     c['name'] = c_name
-
+    print("processed", c_name)
     return c
 
 def process_skill(base_path: Path, skill_id: str) -> Dict[str, Any]:
@@ -204,8 +204,9 @@ if __name__ == '__main__':
             n = c['name']
             assert n not in constellations or n == 'Crossroads'
             constellations.add(n)
-        full_list.extend(data)
 
+        full_list.extend(data)
+    print(f"Found {len(full_list)} constellations")
     CONSTELLATION_FILE.parent.mkdir(exist_ok=True)
-    with open(CONSTELLATION_FILE, 'w') as fp:
-        json.dump(full_list, fp, indent='  ')
+    dump_json(full_list, CONSTELLATION_FILE)
+    print("wrote", CONSTELLATION_FILE)

@@ -1,10 +1,14 @@
 from pathlib import Path
 import subprocess
 from functools import lru_cache
+from .json_utils import load_json as _load_json
 
-TAGS_FILE = Path("data/tags.json")
-CONSTELLATION_FILE = Path("data/constellations.json")
-BONUSES_FILE = Path("data/constellation-bonuses.json")
+DATA_DIRECTORY = Path(__file__).parent.parent / "data"
+TAGS_FILE = DATA_DIRECTORY / "tags.json"
+CONSTELLATION_FILE = DATA_DIRECTORY / "constellations.json"
+BONUSES_FILE = DATA_DIRECTORY / "constellation-bonuses.json"
+
+STAT_IDS = {'Dexterity': 1, 'Strength': 2, 'Intelligence': 3, 'Life': 4, 'Mana': 5}
 
 WEAPON_TYPES = [
     "Axe",
@@ -46,3 +50,12 @@ def auto_extract_archive(path: str):
     if not p.exists():
         subprocess.run(['tar', '-Jxvf', path + '.tar.xz'])
     return p
+
+
+@cache
+def load_tags():
+    return _load_json(TAGS_FILE)
+
+@cache
+def load_constellation_bonuses():
+    return _load_json(BONUSES_FILE)
