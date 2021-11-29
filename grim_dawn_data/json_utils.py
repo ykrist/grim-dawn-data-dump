@@ -41,7 +41,7 @@ def deserialize_json(obj):
         return obj
 
     cls = _JSON_TAG_TO_CLASS[tag]
-    return cls.from_json_dict(obj)
+    return cls.from_json_dict(obj[DATA_FIELD])
 
 def load_json(path):
     with open(path, 'r') as fp:

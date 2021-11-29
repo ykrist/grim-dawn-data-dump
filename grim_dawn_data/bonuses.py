@@ -1,5 +1,8 @@
 from . import load_tags
+from typing import Iterable, List
 from .json_utils import JsonSerializable
+import copy
+
 
 def fmt(fstring, str=True, repr=True):
     def format_self(self):
@@ -23,6 +26,9 @@ class Bonus(JsonSerializable):
     def display(self):
         raise NotImplementedError
 
+    def is_aggregatable(self) -> bool:
+        return False
+
 @fmt("{amount} {kind}")
 class MiscBonus(Bonus):
     def kind_id(self) -> str:
@@ -36,6 +42,8 @@ class MiscBonus(Bonus):
     def display(self) -> str:
         return _get_tag(self.tagname).format(self.amount)
 
+    def is_aggregatable(self) -> bool:
+        return True
 
 @fmt("+{amount}% {kind}")
 class DamageModifier(Bonus):
@@ -49,6 +57,8 @@ class DamageModifier(Bonus):
     def display(self) -> str:
         return _get_tag(f"DamageModifier{self.kind}").format(self.amount)
 
+    def is_aggregatable(self) -> bool:
+        return True
 
 @fmt("{inner}")
 class Pets(Bonus):
@@ -61,6 +71,8 @@ class Pets(Bonus):
     def display(self) -> str:
         return _get_tag('tagPetBonusNameAllPets') + ": " + self.bonus.display()
 
+    def is_aggregatable(self) -> bool:
+        return self.bonus.is_aggregatable()
 
 class Damage(Bonus):
     def __init__(self, min_val: float, kind: str, max_val=None):
@@ -90,6 +102,9 @@ class Damage(Bonus):
             s = f"{self.min_val} {self.kind}"
 
         return f"{self.__class__.__name__}({s})"
+
+    def is_aggregatable(self) -> bool:
+        return self.max_val is None
 
 class Retaliation(Damage):
     def display(self) -> str:
@@ -123,10 +138,11 @@ class DamageOverTime(Bonus):
     def kind_id(self) -> str:
         return f"{self.__class__.__name__}.{self.kind}"
 
+
 class DamageOverTimeModifier(Bonus):
-    def __init__(self, damage: float, duration: float, kind: str):
-        self.damage_mod = damage
-        self.duration_mod = duration
+    def __init__(self, damage_mod: float, duration_mod: float, kind: str):
+        self.damage_mod = damage_mod
+        self.duration_mod = duration_mod
         self.kind = kind
 
     def display(self):
@@ -151,6 +167,8 @@ class DamageOverTimeModifier(Bonus):
 
         return f"{self.__class__.__name__}({s})"
 
+    def is_aggregatable(self) -> bool:
+        return True
 
 @fmt("{prob}% {bonus}")
 class ChanceOf(Bonus):
@@ -165,3 +183,35 @@ class ChanceOf(Bonus):
         return _get_tag("tagChanceOf").format(self.prob) + self.bonus.display()
 
 
+def aggregate_bonuses(bonuses: Iterable[Bonus]) -> List[Bonus]:
+    aggregated = {}
+    pets = []
+    blist = []
+    for b in bonuses:
+        if isinstance(b, Pets):
+            pets.append(b.bonus)
+            continue
+
+        if b.is_aggregatable():
+            key = b.kind_id()
+            if key not in aggregated:
+                aggregated[key] = copy.copy(b)
+            else:
+                total = aggregated[key]
+                if isinstance(b, (MiscBonus, DamageModifier)):
+                    total.amount += b.amount
+                elif isinstance(b, (Damage, Retaliation)):
+                    total.min_val += b.min_val
+                elif isinstance(b, DamageOverTimeModifier):
+                    total.damage_mod += b.damage_mod
+                    total.duration_mod += b.duration_mod
+                else:
+                    raise Exception("unreachable code (bug)")
+
+        else:
+            blist.append(b)
+
+    if pets:
+        blist.extend(map(Pets, aggregate_bonuses(pets)))
+    blist.extend(aggregated.values())
+    return blist
