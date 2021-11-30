@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 import math
 from typing import *
-from grim_dawn_data import WEAPON_TYPES, load_tags, CONSTELLATION_FILE
+from grim_dawn_data import WEAPON_TYPES, load_tags, CONSTELLATION_FILE, _write_data_path
 from grim_dawn_data.json_utils import dump_json
 from pathlib import Path
 import subprocess
@@ -213,6 +213,6 @@ if __name__ == '__main__':
 
         full_list.extend(data)
     print(f"Found {len(full_list)} constellations")
-    CONSTELLATION_FILE.parent.mkdir(exist_ok=True)
-    dump_json(full_list, CONSTELLATION_FILE)
-    print("wrote", CONSTELLATION_FILE)
+    dst = _write_data_path("constellations.json")
+    dump_json(full_list, dst)
+    print("wrote", dst)

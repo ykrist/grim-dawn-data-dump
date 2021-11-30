@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-from grim_dawn_data import cache, DAMAGE_TYPES, BONUSES_FILE, CONSTELLATION_FILE, STAT_IDS, load_tags
+from grim_dawn_data import cache, DAMAGE_TYPES, BONUSES_FILE, CONSTELLATION_FILE, STAT_IDS, load_tags, _write_data_path
 from grim_dawn_data.bonuses import *
 from grim_dawn_data.json_utils import dump_json, load_json
 from typing import *
@@ -211,4 +211,4 @@ if __name__ == '__main__':
             fp.write(contents)
         print(contents)
 
-    dump_json(data, BONUSES_FILE)
+    dump_json(data, _write_data_path("constellation-bonuses.json"))

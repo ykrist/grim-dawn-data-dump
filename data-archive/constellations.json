@@ -44,7 +44,7 @@
         }
       },
       "5": {
-        "celestial_power": "Vire - Fist of Vire"
+        "celestial_power": "Fist of Vire"
       }
     },
     "affinity_bonus": {},
@@ -95,7 +95,7 @@
         }
       },
       "5": {
-        "celestial_power": "Attak Seru - Arcane Currents"
+        "celestial_power": "Arcane Currents"
       }
     },
     "affinity_bonus": {},
@@ -201,7 +201,7 @@
         }
       },
       "5": {
-        "celestial_power": "Ishtak - Nature Guardian"
+        "celestial_power": "Nature's Guardians"
       }
     },
     "affinity_bonus": {},
@@ -299,7 +299,7 @@
         }
       },
       "5": {
-        "celestial_power": "Rattosh - Mark of Rattosh"
+        "celestial_power": "Will of Rattosh"
       }
     },
     "affinity_bonus": {},
@@ -346,7 +346,7 @@
         }
       },
       "4": {
-        "celestial_power": "Alladrah's Phoenix - Phoenix Fire"
+        "celestial_power": "Phoenix Fire"
       }
     },
     "affinity_bonus": {
@@ -402,7 +402,7 @@
         }
       },
       "5": {
-        "celestial_power": "Harp - Inspiration"
+        "celestial_power": "Inspiration"
       }
     },
     "affinity_bonus": {
@@ -648,7 +648,7 @@
         }
       },
       "5": {
-        "celestial_power": "Ultos - Hand of Ultos"
+        "celestial_power": "Hand of Ultos"
       }
     },
     "affinity_bonus": {},
@@ -687,7 +687,7 @@
         }
       },
       "3": {
-        "celestial_power": "Murmur - Rumor"
+        "celestial_power": "Rumor"
       },
       "4": {
         "bonuses": {
@@ -861,7 +861,7 @@
         }
       },
       "6": {
-        "celestial_power": "Ulzuin's Torch - Meteor Shower"
+        "celestial_power": "Meteor Shower"
       }
     },
     "affinity_bonus": {},
@@ -924,7 +924,7 @@
         }
       },
       "5": {
-        "celestial_power": "Tree of Life - Healing Rain"
+        "celestial_power": "Healing Rain"
       }
     },
     "affinity_bonus": {},
@@ -966,7 +966,7 @@
         }
       },
       "4": {
-        "celestial_power": "Akeron Scorpion - Scorpion Sting"
+        "celestial_power": "Scorpion Sting"
       }
     },
     "affinity_bonus": {
@@ -1039,7 +1039,7 @@
       "order": 1
     },
     "affinity_required": {},
-    "name": "Crossroads"
+    "name": "Crossroads (Order)"
   },
   {
     "pred": {
@@ -1083,7 +1083,7 @@
         }
       },
       "5": {
-        "celestial_power": "Dire Bear - Maul"
+        "celestial_power": "Maul"
       }
     },
     "affinity_bonus": {
@@ -1215,7 +1215,7 @@
         }
       },
       "4": {
-        "celestial_power": "Falcon - Falcon Swoop"
+        "celestial_power": "Falcon Swoop"
       }
     },
     "affinity_bonus": {
@@ -1275,7 +1275,7 @@
         }
       },
       "6": {
-        "celestial_power": "Menhir's Obelisk"
+        "celestial_power": "Stone Form"
       }
     },
     "affinity_bonus": {},
@@ -1373,7 +1373,7 @@
         }
       },
       "5": {
-        "celestial_power": "Manticore - Acid Spray"
+        "celestial_power": "Acid Spray"
       }
     },
     "affinity_bonus": {
@@ -1536,7 +1536,7 @@
         }
       },
       "4": {
-        "celestial_power": "Fiend - Flame Torrent"
+        "celestial_power": "Flame Torrent"
       }
     },
     "affinity_bonus": {
@@ -1655,7 +1655,7 @@
         }
       },
       "4": {
-        "celestial_power": "Turtle - Turtle Shell"
+        "celestial_power": "Turtle Shell"
       }
     },
     "affinity_bonus": {
@@ -1724,7 +1724,7 @@
         }
       },
       "6": {
-        "celestial_power": "Dying God - Hungering Void"
+        "celestial_power": "Hungering Void"
       }
     },
     "affinity_bonus": {},
@@ -1747,7 +1747,7 @@
       "eldritch": 1
     },
     "affinity_required": {},
-    "name": "Crossroads"
+    "name": "Crossroads (Eldritch)"
   },
   {
     "pred": {
@@ -1801,7 +1801,7 @@
         }
       },
       "6": {
-        "celestial_power": "Magi - Volcano"
+        "celestial_power": "Fissure"
       }
     },
     "affinity_bonus": {
@@ -1894,7 +1894,7 @@
         }
       },
       "4": {
-        "celestial_power": "Samael's Witchblade - Eldritch Fire"
+        "celestial_power": "Eldritch Fire"
       }
     },
     "affinity_bonus": {
@@ -2034,7 +2034,7 @@
         }
       },
       "4": {
-        "celestial_power": "Bysmiel's Bonds - Bysmiel's Command"
+        "celestial_power": "Bysmiel's Command"
       }
     },
     "affinity_bonus": {
@@ -2096,7 +2096,7 @@
         }
       },
       "5": {
-        "celestial_power": "Aeon's Hourglass - Time Dilation"
+        "celestial_power": "Time Dilation"
       }
     },
     "affinity_bonus": {},
@@ -2198,7 +2198,7 @@
         }
       },
       "4": {
-        "celestial_power": "Bat - Twin Fangs"
+        "celestial_power": "Twin Fangs"
       }
     },
     "affinity_bonus": {
@@ -2304,7 +2304,7 @@
         }
       },
       "5": {
-        "celestial_power": "Behemoth - Giantsblood"
+        "celestial_power": "Giant's Blood"
       }
     },
     "affinity_bonus": {
@@ -2351,7 +2351,7 @@
         }
       },
       "4": {
-        "celestial_power": "Imp - Aetherfire"
+        "celestial_power": "Aetherfire"
       }
     },
     "affinity_bonus": {
@@ -2414,7 +2414,7 @@
         }
       },
       "6": {
-        "celestial_power": "Tempest - Reckless Tempest"
+        "celestial_power": "Reckless Tempest"
       }
     },
     "affinity_bonus": {
@@ -2549,7 +2549,7 @@
         }
       },
       "5": {
-        "celestial_power": "Wendigo - Mark of the Wendigo"
+        "celestial_power": "Wendigo's Mark"
       }
     },
     "affinity_bonus": {
@@ -2827,7 +2827,7 @@
         }
       },
       "6": {
-        "celestial_power": "Unknown Soldier - Living Shadow"
+        "celestial_power": "Living Shadow"
       }
     },
     "affinity_bonus": {},
@@ -2885,7 +2885,7 @@
         }
       },
       "6": {
-        "celestial_power": "Targo the Builder - Shield Wall"
+        "celestial_power": "Shield Wall"
       }
     },
     "affinity_bonus": {
@@ -3001,7 +3001,7 @@
         }
       },
       "6": {
-        "celestial_power": "Blind Sage - Elemental Seeker"
+        "celestial_power": "Elemental Seeker"
       }
     },
     "affinity_bonus": {},
@@ -3042,7 +3042,7 @@
         }
       },
       "4": {
-        "celestial_power": "Assassin Blade - Assassin's Mark"
+        "celestial_power": "Assassin's Mark"
       }
     },
     "affinity_bonus": {
@@ -3067,6 +3067,7 @@
           "characterManaRegenModifier": 15.0
         },
         "weapon_requirement": [
+          "Dagger",
           "Offhand"
         ]
       },
@@ -3076,6 +3077,7 @@
           "characterOffensiveAbility": 25.0
         },
         "weapon_requirement": [
+          "Dagger",
           "Offhand"
         ]
       },
@@ -3085,6 +3087,7 @@
           "offensiveCritDamageModifier": 5.0
         },
         "weapon_requirement": [
+          "Dagger",
           "Offhand"
         ]
       },
@@ -3094,6 +3097,7 @@
           "offensiveTotalDamageModifier": 50.0
         },
         "weapon_requirement": [
+          "Dagger",
           "Offhand"
         ]
       },
@@ -3104,6 +3108,7 @@
           "characterSpellCastSpeedModifier": 5.0
         },
         "weapon_requirement": [
+          "Dagger",
           "Offhand"
         ]
       }
@@ -3130,7 +3135,7 @@
       "ascendant": 1
     },
     "affinity_required": {},
-    "name": "Crossroads"
+    "name": "Crossroads (Ascendant)"
   },
   {
     "pred": {
@@ -3166,7 +3171,7 @@
         }
       },
       "4": {
-        "celestial_power": "Anvil - Targo's Hammer"
+        "celestial_power": "Targo's Hammer"
       }
     },
     "affinity_bonus": {
@@ -3218,7 +3223,7 @@
         }
       },
       "5": {
-        "celestial_power": "Widow - Arcane Bomb"
+        "celestial_power": "Arcane Bomb"
       }
     },
     "affinity_bonus": {
@@ -3276,7 +3281,7 @@
         }
       },
       "6": {
-        "celestial_power": "Assassin - Blade Burst"
+        "celestial_power": "Blades of Wrath"
       }
     },
     "affinity_bonus": {
@@ -3386,7 +3391,7 @@
         }
       },
       "4": {
-        "celestial_power": "Dryad - Dryad's Blessing"
+        "celestial_power": "Dryad's Blessing"
       }
     },
     "affinity_bonus": {
@@ -3464,7 +3469,7 @@
         }
       },
       "6": {
-        "celestial_power": "Light of Empyrion - Light of Empyrion"
+        "celestial_power": "Light of Empyrion"
       }
     },
     "affinity_bonus": {},
@@ -3507,7 +3512,7 @@
         }
       },
       "4": {
-        "celestial_power": "Eye of Dreeg - Guardian's Gaze"
+        "celestial_power": "Guardian's Gaze"
       }
     },
     "affinity_bonus": {
@@ -3532,7 +3537,7 @@
       "chaos": 1
     },
     "affinity_required": {},
-    "name": "Crossroads"
+    "name": "Crossroads (Chaos)"
   },
   {
     "pred": {
@@ -3574,7 +3579,7 @@
         }
       },
       "4": {
-        "celestial_power": "Abomination - Abominable Might"
+        "celestial_power": "Abominable Might"
       },
       "5": {
         "bonuses": {
@@ -3592,7 +3597,7 @@
         }
       },
       "7": {
-        "celestial_power": "Abomination - Vile Eruption"
+        "celestial_power": "Tainted Eruption"
       }
     },
     "affinity_bonus": {},
@@ -3650,7 +3655,7 @@
         }
       },
       "6": {
-        "celestial_power": "Autumn Boar - Trample"
+        "celestial_power": "Trample"
       }
     },
     "affinity_bonus": {
@@ -3852,7 +3857,7 @@
         }
       },
       "4": {
-        "celestial_power": "Tsunami - Tsunami"
+        "celestial_power": "Tsunami"
       }
     },
     "affinity_bonus": {
@@ -3922,7 +3927,7 @@
         }
       },
       "2": {
-        "celestial_power": "Affliction - Fetid pool"
+        "celestial_power": "Fetid Pool"
       },
       "3": {
         "bonuses": {
@@ -4143,7 +4148,7 @@
         }
       },
       "6": {
-        "celestial_power": "Huntress - Rend"
+        "celestial_power": "Rend"
       }
     },
     "affinity_bonus": {
@@ -4208,7 +4213,7 @@
         }
       },
       "6": {
-        "celestial_power": "Leviathan - Whirlpool"
+        "celestial_power": "Whirlpool"
       }
     },
     "affinity_bonus": {},
@@ -4283,7 +4288,7 @@
         }
       },
       "2": {
-        "celestial_power": "Crab - Arcane Barrier"
+        "celestial_power": "Arcane Barrier"
       },
       "3": {
         "bonuses": {
@@ -4363,7 +4368,7 @@
         }
       },
       "6": {
-        "celestial_power": "Oleron - Blind Fury"
+        "celestial_power": "Blind Fury"
       }
     },
     "affinity_bonus": {},
@@ -4386,7 +4391,7 @@
       "primordial": 1
     },
     "affinity_required": {},
-    "name": "Crossroads"
+    "name": "Crossroads (Primordial)"
   },
   {
     "pred": {
@@ -4434,7 +4439,7 @@
         }
       },
       "5": {
-        "celestial_power": "Revenant - Raise Skeleton"
+        "celestial_power": "Raise the Dead"
       }
     },
     "affinity_bonus": {
@@ -4471,7 +4476,7 @@
         }
       },
       "2": {
-        "celestial_power": "Rhowan's Crown - Elemental Storm"
+        "celestial_power": "Elemental Storm"
       },
       "3": {
         "bonuses": {
@@ -4541,7 +4546,7 @@
         }
       },
       "4": {
-        "celestial_power": "Shepherd Crook - Shepherd's Call"
+        "celestial_power": "Shepherd's Call"
       }
     },
     "affinity_bonus": {
@@ -4645,7 +4650,7 @@
         }
       },
       "6": {
-        "celestial_power": "Amatok Spirit of Winter - Blizzard"
+        "celestial_power": "Blizzard"
       }
     },
     "affinity_bonus": {
@@ -4752,7 +4757,7 @@
         }
       },
       "5": {
-        "celestial_power": "Spear of the Heavens - Spear of the Heavens"
+        "celestial_power": "Spear of the Heavens"
       }
     },
     "affinity_bonus": {},
@@ -4809,7 +4814,7 @@
         }
       },
       "6": {
-        "celestial_power": "Chariot of the Dead - Wayward Soul"
+        "celestial_power": "Wayward Soul"
       }
     },
     "affinity_bonus": {
@@ -4863,7 +4868,7 @@
         }
       },
       "5": {
-        "celestial_power": "Messenger of War - Messenger of War"
+        "celestial_power": "Messenger of War"
       }
     },
     "affinity_bonus": {
@@ -4917,7 +4922,7 @@
         }
       },
       "5": {
-        "celestial_power": "Scales of Ulcama - Tip the Scales"
+        "celestial_power": "Tip the Scales"
       }
     },
     "affinity_bonus": {
@@ -5043,7 +5048,7 @@
         }
       },
       "4": {
-        "celestial_power": "Ghoul - Ghoulish Hunger"
+        "celestial_power": "Ghoulish Hunger"
       }
     },
     "affinity_bonus": {
@@ -5089,7 +5094,7 @@
         }
       },
       "4": {
-        "celestial_power": "Bull - Bull Rush"
+        "celestial_power": "Bull Rush"
       }
     },
     "affinity_bonus": {
@@ -5159,7 +5164,7 @@
         }
       },
       "5": {
-        "celestial_power": "Mogdrogen the Wolf - Howl of Mogdrogen"
+        "celestial_power": "Howl of Mogdrogen"
       }
     },
     "affinity_bonus": {},
@@ -5211,7 +5216,7 @@
         }
       },
       "4": {
-        "celestial_power": "Ulo Keeper of the Waters - Purge"
+        "celestial_power": "Cleansing Waters"
       }
     },
     "affinity_bonus": {
@@ -5261,7 +5266,7 @@
         }
       },
       "4": {
-        "celestial_power": "Azrakaa - Shifting Sands"
+        "celestial_power": "Shifting Sands"
       },
       "5": {
         "bonuses": {
@@ -5364,7 +5369,7 @@
         }
       },
       "3": {
-        "celestial_power": "Ulzaad - Ulzaad Decree"
+        "celestial_power": "Ulzaad's Decree"
       },
       "4": {
         "bonuses": {
@@ -5432,7 +5437,7 @@
         }
       },
       "5": {
-        "celestial_power": "Yugol - Black Blood of Yugol"
+        "celestial_power": "Black Blood of Yugol"
       }
     },
     "affinity_bonus": {},
@@ -5487,7 +5492,7 @@
         }
       },
       "4": {
-        "celestial_power": "Korvaak - Korvaak's Eye "
+        "celestial_power": "Eye of Korvaak"
       },
       "5": {
         "bonuses": {
@@ -5626,7 +5631,7 @@
         }
       },
       "4": {
-        "celestial_power": "Hyrian -  Hyrian Glare"
+        "celestial_power": "Hyrian's Glare"
       },
       "5": {
         "bonuses": {

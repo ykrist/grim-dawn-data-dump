@@ -4,9 +4,23 @@ from functools import lru_cache
 from .json_utils import load_json as _load_json
 
 DATA_DIRECTORY = Path(__file__).parent.parent / "data"
-TAGS_FILE = DATA_DIRECTORY / "tags.json"
-CONSTELLATION_FILE = DATA_DIRECTORY / "constellations.json"
-BONUSES_FILE = DATA_DIRECTORY / "constellation-bonuses.json"
+DATA_ARCHIVE_DIRECTORY = Path(__file__).parent.parent / "data-archive"
+
+
+def _read_data_path(filename) -> Path:
+    p = DATA_DIRECTORY / filename
+    if p.exists():
+        return p
+    return DATA_ARCHIVE_DIRECTORY / filename
+
+def _write_data_path(filename) -> Path:
+    DATA_DIRECTORY.mkdir(exist_ok=True)
+    return DATA_DIRECTORY / filename
+
+
+TAGS_FILE = _read_data_path("tags.json")
+CONSTELLATION_FILE = _read_data_path("constellations.json")
+BONUSES_FILE = _read_data_path("constellation-bonuses.json")
 
 STAT_IDS = {'Dexterity': 1, 'Strength': 2, 'Intelligence': 3, 'Life': 4, 'Mana': 5}
 

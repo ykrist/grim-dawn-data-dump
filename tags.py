@@ -1,7 +1,6 @@
 #!/usr/bin/env python3
-import json
 import re
-from grim_dawn_data import TAGS_FILE, auto_extract_archive
+from grim_dawn_data import TAGS_FILE, auto_extract_archive, _write_data_path
 from grim_dawn_data.json_utils import dump_json
 
 TAGS_DIR = auto_extract_archive('tags')
@@ -32,7 +31,7 @@ if __name__ == '__main__':
                     tags[tag] = convert_format_string(string)
 
     count_unqiue = len(tags)
-    TAGS_FILE.parent.mkdir(exist_ok=True)
-    dump_json(tags, TAGS_FILE)
+    dst = _write_data_path("tags.json")
+    dump_json(tags, dst)
     print(f"Extracted tags: {count_unqiue} unique + {count_ignored} ignored + {count_total - count_unqiue - count_ignored} duplicate / {count_total} total")
-    print("wrote", TAGS_FILE.resolve())
+    print("wrote", dst)
