@@ -23,8 +23,18 @@ class Bonus(JsonSerializable):
     def kind_id(self) -> str:
         raise NotImplementedError
 
-    def display(self):
+    def display_fmt(self) -> str:
         raise NotImplementedError
+
+    def display_args(self) -> tuple:
+        raise NotImplementedError
+
+    def display(self) -> str:
+        return self.display_fmt().format(*self.display_args())
+
+    def display_symbolic(self) -> str:
+        k = len(self.display_args())
+        return self.display_fmt().format(*('XYZ'[i] for i in range(k)))
 
     def is_aggregatable(self) -> bool:
         return False
@@ -39,8 +49,12 @@ class MiscBonus(Bonus):
         self.kind = kind
         self.tagname = tagname
 
-    def display(self) -> str:
-        return _get_tag(self.tagname).format(self.amount)
+    def display_fmt(self) -> str:
+        return _get_tag(self.tagname)
+
+    def display_args(self) -> tuple:
+        return self.amount,
+
 
     def is_aggregatable(self) -> bool:
         return True
@@ -54,13 +68,16 @@ class DamageModifier(Bonus):
         self.amount = amount
         self.kind = kind
 
-    def display(self) -> str:
-        return _get_tag(f"DamageModifier{self.kind}").format(self.amount)
+    def display_fmt(self) -> str:
+        return _get_tag(f"DamageModifier{self.kind}")
+
+    def display_args(self):
+        return self.amount,
 
     def is_aggregatable(self) -> bool:
         return True
 
-@fmt("{inner}")
+@fmt("{bonus}")
 class Pets(Bonus):
     def __init__(self, bonus: Bonus):
         self.bonus = bonus
@@ -68,8 +85,11 @@ class Pets(Bonus):
     def kind_id(self) -> str:
         return f"Pets.{self.bonus.kind_id()}"
 
-    def display(self) -> str:
-        return _get_tag('tagPetBonusNameAllPets') + ": " + self.bonus.display()
+    def display_fmt(self) -> str:
+        return _get_tag('tagPetBonusNameAllPets') + ": " + self.bonus.display_fmt()
+
+    def display_args(self) -> tuple:
+        return self.bonus.display_args()
 
     def is_aggregatable(self) -> bool:
         return self.bonus.is_aggregatable()
@@ -86,14 +106,25 @@ class Damage(Bonus):
     def is_range(self) -> bool:
         return self.max_val is not None
 
-    def _display_range(self):
-        if self.is_range():
-            return _get_tag("DamageRangeFormat").format(self.min_val, self.max_val)
-        else:
-            return _get_tag("DamageSingleFormat").format(self.min_val)
+    def _initial_fmt(self):
+        return _get_tag(f"Damage{self.kind}")
 
-    def display(self) -> str:
-        return _get_tag(f"Damage{self.kind}").format(self._display_range())
+    def display_fmt(self):
+        f = self._initial_fmt()
+        if self.is_range():
+            return f.format(_get_tag("DamageRangeFormat"))
+        else:
+            return f.format(_get_tag("DamageSingleFormat"))
+
+    def display_args(self):
+        if self.is_range():
+            return (self.min_val, self.max_val)
+        else:
+            return self.min_val,
+
+    def display_symbolic(self) -> str:
+        f = _get_tag(f"Damage{self.kind}")
+        return f.format(_get_tag("DamageRangeFormat")).format('X', 'Y')
 
     def __repr__(self):
         if self.is_range():
@@ -107,8 +138,13 @@ class Damage(Bonus):
         return self.max_val is None
 
 class Retaliation(Damage):
-    def display(self) -> str:
-        return _get_tag(f"Retaliation{self.kind}").format(self._display_range())
+    def kind_id(self) -> str:
+        return f"{self.__class__.__name__}.{self.kind}"
+
+    def _initial_fmt(self) -> str:
+        return _get_tag(f"Retaliation{self.kind}")
+
+
 
 @fmt("-{amount}% * {duration}s {kind}")
 class ResistanceReduction(Bonus):
@@ -120,9 +156,11 @@ class ResistanceReduction(Bonus):
     def kind_id(self) -> str:
         return f"{self.__class__.__name__}.{self.kind}"
 
-    def display(self):
-        fstr =  _get_tag(f"Damage{self.kind}ResistanceReductionPercent") + _get_tag('DamageFixedSingleFormatTime')
-        return fstr.format(self.amount, self.duration)
+    def display_fmt(self):
+        return _get_tag("DamageSingleFormat") +  _get_tag(f"Damage{self.kind}ResistanceReductionPercent") + _get_tag('DamageFixedSingleFormatTime')
+
+    def display_args(self) -> tuple:
+        return (self.amount, self.duration)
 
 @fmt("{dps} * {duration}s {kind}")
 class DamageOverTime(Bonus):
@@ -131,9 +169,12 @@ class DamageOverTime(Bonus):
         self.duration = duration
         self.kind = kind
 
-    def display(self):
-        fstr = _get_tag("DamageSingleFormat") + _get_tag(f"DamageDuration{self.kind}") + _get_tag("DamageSingleFormatTime")
-        return fstr.format(self.dps * self.duration, self.duration)
+    def display_fmt(self):
+        return _get_tag("DamageSingleFormat") + _get_tag(f"DamageDuration{self.kind}") + _get_tag("DamageSingleFormatTime")
+
+
+    def display_args(self):
+        return (self.dps * self.duration, self.duration)
 
     def kind_id(self) -> str:
         return f"{self.__class__.__name__}.{self.kind}"
@@ -145,12 +186,26 @@ class DamageOverTimeModifier(Bonus):
         self.duration_mod = duration_mod
         self.kind = kind
 
-    def display(self):
-        fstr = _get_tag(f"DamageDurationModifier{self.kind}")
+    def _display_fmt_with_duration(self):
+        return self._display_fmt_without_duration() + _get_tag("ImprovedTimeFormat")
+
+    def _display_fmt_without_duration(self):
+        return _get_tag(f"DamageDurationModifier{self.kind}")
+
+    def display_fmt(self):
         if self.duration_mod == 0:
-            return fstr.format(self.damage_mod)
-        fstr = fstr + _get_tag("ImprovedTimeFormat")
-        return fstr.format(self.damage_mod, self.duration_mod)
+            return self._display_fmt_without_duration()
+        else:
+            return self._display_fmt_with_duration()
+
+    def display_args(self):
+        if self.duration_mod == 0:
+            return self.damage_mod,
+        else:
+            return self.damage_mod, self.duration_mod
+
+    def display_symbolic(self) -> str:
+        return self._display_fmt_with_duration().format('X', 'Y')
 
     def kind_id(self) -> str:
         return f"{self.__class__.__name__}.{self.kind}"
@@ -179,8 +234,11 @@ class ChanceOf(Bonus):
     def kind_id(self) -> str:
         return f"{self.__class__.__name__}.{self.bonus.kind_id()}"
 
-    def display(self):
-        return _get_tag("tagChanceOf").format(self.prob) + self.bonus.display()
+    def display_fmt(self):
+        return _get_tag("tagChanceOf") + self.bonus.display_fmt()
+
+    def display_args(self) -> tuple:
+        return (self.prob, ) + self.bonus.display_args()
 
 
 def aggregate_bonuses(bonuses: Iterable[Bonus]) -> List[Bonus]:

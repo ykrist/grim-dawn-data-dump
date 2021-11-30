@@ -1,8 +1,21 @@
 from typing import Dict, Any
 import json
 
-_JSON_CLASS_TO_TAG = {}
-_JSON_TAG_TO_CLASS = {}
+_JSON_CLASS_TO_TAG = {
+    set: "set",
+    frozenset: "frozenset",
+}
+_JSON_TAG_TO_CLASS = {v : k for k,v in _JSON_CLASS_TO_TAG.items()}
+
+_CONVERT_TO_JSON = {
+    set: list,
+    frozenset: list,
+}
+
+_CONVERT_FROM_JSON = {
+    "set": set,
+    "frozenset": frozenset,
+}
 
 TYPE_FIELD = "__type__"
 DATA_FIELD = "data"
@@ -15,6 +28,8 @@ class JsonSerializable:
 
         _JSON_TAG_TO_CLASS[json_tag] = cls
         _JSON_CLASS_TO_TAG[cls] = json_tag
+        _CONVERT_FROM_JSON[json_tag] = cls.from_json_dict
+        _CONVERT_TO_JSON[cls] = lambda c : c.to_json_dict()
 
     def to_json_dict(self):
         return self.__dict__
@@ -23,16 +38,17 @@ class JsonSerializable:
     def from_json_dict(cls, data: Dict[str, Any]):
         return cls(**data)
 
-
 def serialize_json(obj):
-    if isinstance(obj, JsonSerializable):
+    try:
+        convert = _CONVERT_TO_JSON[obj.__class__]
         tag = _JSON_CLASS_TO_TAG[obj.__class__]
+    except KeyError:
+        return obj
+    else:
         return {
             TYPE_FIELD: tag,
-            DATA_FIELD: obj.to_json_dict()
+            DATA_FIELD: convert(obj)
         }
-
-    return obj
 
 def deserialize_json(obj):
     try:
@@ -40,8 +56,8 @@ def deserialize_json(obj):
     except KeyError:
         return obj
 
-    cls = _JSON_TAG_TO_CLASS[tag]
-    return cls.from_json_dict(obj[DATA_FIELD])
+    convert = _CONVERT_FROM_JSON[tag]
+    return convert(obj[DATA_FIELD])
 
 def load_json(path):
     with open(path, 'r') as fp:

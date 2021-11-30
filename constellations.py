@@ -67,8 +67,9 @@ class BadActiveSkillFile(Exception):
 def parse_active_skill_file(p: Path) -> dict:
     data = load_dbr_file(p)
     tags = load_tags()
-    if "skillBaseDescription" in data:
-        output = { "celestial_power": tags[data['skillBaseDescription']]}
+    if "skillDisplayName" in data:
+        output = { "celestial_power": tags[data['skillDisplayName']]}
+        print("Celestial Power:", output['celestial_power'])
     else:
         raise BadActiveSkillFile
 
@@ -154,6 +155,11 @@ def process_constellation(base_path: Path, p: Path) -> Optional[Dict[str, Any]]:
         c['skills'][s] = skill
 
     assert c_name is not None
+    if c_name == 'Crossroads':
+        assert len(c['affinity_bonus']) == 1
+        aff = next(iter(c['affinity_bonus'])).capitalize()
+        c_name = f'{c_name} ({aff})'
+
     c['name'] = c_name
     print("processed", c_name)
     return c
@@ -202,7 +208,7 @@ if __name__ == '__main__':
         data = parse_constellations_from_db(src)
         for c in data:
             n = c['name']
-            assert n not in constellations or n == 'Crossroads'
+            assert n not in constellations
             constellations.add(n)
 
         full_list.extend(data)

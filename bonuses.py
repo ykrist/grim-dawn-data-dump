@@ -107,7 +107,7 @@ def get_retaliation_damage(bonuses: dict) -> List[Bonus]:
             v_max = None
 
         if v_min is not None:
-            blist.append(Damage(v_min, ty, max_val=v_max))
+            blist.append(Retaliation(v_min, ty, max_val=v_max))
 
     return blist
 
